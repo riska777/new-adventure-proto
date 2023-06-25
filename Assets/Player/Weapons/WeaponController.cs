@@ -10,12 +10,13 @@ namespace AdventureProto
         public Weapon primaryWeapon;
         public GameObject playerLeftHand;
         public GameObject playerRightHand;
-        [HideInInspector] public bool IsCoroutineRunning = false;
+        [HideInInspector] public bool isWeaponSwitchActive = false;
 
         private Animator animator;
         private Weapon currentWeapon;
+        private Weapon previousWeapon;
         private PlayerAnimationEventsController animatorEvents;
-        private bool isUnsheathed = false;
+        private bool isWeaponEquipped = false;
             
 
         public enum WeaponType
@@ -37,41 +38,63 @@ namespace AdventureProto
         public void Attack (CombatTarget target)
         {
             animator.SetTrigger("attacking");
-            Weapon weapon = isUnsheathed ? currentWeapon : defaultWeapon;
+            Weapon weapon = GetActiveWeapon();
             Debug.Log($"DMG {target.name}   {weapon.GetDamage()}");
         }
 
         public void TogglePrimaryWeapon()
         {
- 
+            if (!isWeaponSwitchActive)
+            {
+                StartCoroutine(GetTogglePrimaryWeapon());
+            } else
+            {
+                Debug.Log("Weapon switch in progress");
+            }
         }
 
-        public void UnsheathWeapon(WeaponType weaponType)
-        {
-            StartCoroutine(GetUnsheathWeapon(primaryWeapon));
-        }
-
-        private IEnumerator GetUnsheathWeapon(Weapon weapon)
+        private IEnumerator GetTogglePrimaryWeapon()
         {
             OnCoroutineStart();
-            // Unsheath logic goes here
-            Debug.Log($"Unsheathing weapon {weapon}");
-            animator.SetBool("twoHandSword", true);
-            // Simulating a delay before the method ends
-            currentWeapon = weapon;
-            yield return new WaitForSeconds(0.5f);
-            Debug.Log("Unsheath weapon done");
-            currentWeapon.Spawn(playerRightHand);
-            isUnsheathed = true;
+            if(!isWeaponEquipped)
+            {
+                SetCurrentWeapon(primaryWeapon, false, "twoHandSword", true);
+
+                yield return new WaitForSeconds(0.5f);
+                Debug.Log("Unsheath weapon done");
+                currentWeapon.Spawn(playerRightHand);
+                isWeaponEquipped = true;
+            } else
+            {
+                // Unequip back to unarmed
+                SetCurrentWeapon(defaultWeapon, true, "twoHandSword", false);
+                yield return new WaitForSeconds(0.5f);
+                DestroyPreviousWeaponInstance();
+                isWeaponEquipped = false;
+            }
             OnCoroutineEnd();
         }
 
-        public void SheathWeapon()
+        private void SetCurrentWeapon(Weapon weapon, bool destroyInstance, string animatiorVariableKey, bool animatiorVariableValue)
         {
-            StartCoroutine("GetSheathWeapon");
+            Debug.Log($"SetCurrentWeapon {weapon}");
+            previousWeapon = currentWeapon;
+            currentWeapon = weapon;
+            animator.SetBool(animatiorVariableKey, animatiorVariableValue);
         }
 
-        private IEnumerator GetSheathWeapon()
+        private void DestroyPreviousWeaponInstance()
+        {
+            previousWeapon.DestroyWeaponInstance();
+            previousWeapon = null;
+        }
+
+        public void UnequipWeapon()
+        {
+            StartCoroutine("GetUnequipWeapon");
+        }
+
+        private IEnumerator GetUnequipWeapon()
         {
             // Unsheathe logic goes here
             OnCoroutineStart();
@@ -80,7 +103,7 @@ namespace AdventureProto
             // Simulating a delay before the method ends
             yield return new WaitForSeconds(0.5f);
             currentWeapon.DestroyWeaponInstance();
-            isUnsheathed = false;
+            isWeaponEquipped = false;
             OnCoroutineEnd();
         }
 
@@ -92,19 +115,22 @@ namespace AdventureProto
 
         private void OnCoroutineStart()
         {
-            IsCoroutineRunning = true;
+            isWeaponSwitchActive = true;
         }
 
         private void OnCoroutineEnd()
         {
-            IsCoroutineRunning = false;
+            isWeaponSwitchActive = false;
+        }
+        private Weapon GetActiveWeapon()
+        {
+            return isWeaponEquipped ? currentWeapon : defaultWeapon;
         }
 
         #region Animation Events
         public void OnWeaponSwitch()
         {
             Debug.Log("weapon switch event");
-
         }
         #endregion
     }
