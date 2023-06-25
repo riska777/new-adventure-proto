@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace AdventureProto
@@ -17,7 +16,6 @@ namespace AdventureProto
         private Weapon previousWeapon;
         private PlayerAnimationEventsController animatorEvents;
         private bool isWeaponEquipped = false;
-            
 
         public enum WeaponType
         {
@@ -39,7 +37,7 @@ namespace AdventureProto
         {
             animator.SetTrigger("attacking");
             Weapon weapon = GetActiveWeapon();
-            Debug.Log($"DMG {target.name}   {weapon.GetDamage()}");
+            target.TakeDamage(weapon.GetDamage());
         }
 
         public void TogglePrimaryWeapon()

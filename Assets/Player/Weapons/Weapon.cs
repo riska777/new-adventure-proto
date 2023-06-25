@@ -5,10 +5,12 @@ namespace AdventureProto
     [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/New Weapon")]
     public class Weapon : ScriptableObject
     {
+        [Header("Weapon Details")]
         [SerializeField] GameObject weaponPrefab;
         [SerializeField] bool unhanded;
         [SerializeField] float weaponDamage;
         [SerializeField] float weaponRange;
+        [Header("Weapon Positioning")]
         [SerializeField] float weaponPositionX = 0.114f;
         [SerializeField] float weaponPositionY = 0.005f;
         [SerializeField] float weaponPositionZ = -1.463f;

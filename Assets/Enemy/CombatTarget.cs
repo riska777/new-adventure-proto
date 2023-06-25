@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatTarget : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public DamageText damageTextPrefab;
+    public float damageTextOffset = 2f;
 
-    // Update is called once per frame
-    void Update()
+    public void TakeDamage(float damage)
     {
-        
+        Debug.Log($"DMG {gameObject}   {damage}");
+        if (damageTextPrefab)
+        {
+            // Instantiate the damage text object and display it
+            DamageText damageText = Instantiate(damageTextPrefab, transform.position, Quaternion.identity, transform);
+            damageText.ShowDamageText(damageTextOffset, damage);
+        }
     }
 }
