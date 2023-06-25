@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1f13ac2fc969049b267273bca6ec28, type: 3}
+  m_Name: Unarmed
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 0}
+  unhanded: 1
+  weaponDamage: 10
+  weaponRange: 2.8
+  weaponPositionX: 0.114
+  weaponPositionY: 0.005
+  weaponPositionZ: -1.463
+  weaponRotationX: 1.776
+  weaponRotationY: -9.346
+  weaponRotationZ: 1.293

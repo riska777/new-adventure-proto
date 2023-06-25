@@ -1,0 +1,24 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# Visual Studio/Visual Studio Code generated
+*.sln
+*.csproj
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+.vs/
+.vscode/
+.vsconfig
+
+# Mac specific
+.DS_Store
