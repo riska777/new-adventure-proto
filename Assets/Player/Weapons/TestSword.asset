@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: TestSword
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 8609971337996906314, guid: 7414c77c4c61c934387679940f15533f, type: 3}
+  unhanded: 0
   weaponDamage: 100
-  weaponRange: 3
+  weaponRange: 2.2
   weaponPositionX: 0.114
   weaponPositionY: 0.005
   weaponPositionZ: -1.463

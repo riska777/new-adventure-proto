@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   unhanded: 1
   weaponDamage: 10
-  weaponRange: 2.8
+  weaponRange: 2.2
   weaponPositionX: 0.114
   weaponPositionY: 0.005
   weaponPositionZ: -1.463
