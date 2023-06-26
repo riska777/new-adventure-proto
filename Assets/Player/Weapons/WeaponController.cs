@@ -40,21 +40,21 @@ namespace AdventureProto
             target.TakeDamage(weapon.GetDamage());
         }
 
-        public void TogglePrimaryWeapon()
+        public void TogglePrimaryWeapon(bool setWeaponOnAwake = false)
         {
             if (!isWeaponSwitchActive)
             {
-                StartCoroutine(GetTogglePrimaryWeapon());
+                StartCoroutine(GetTogglePrimaryWeapon(setWeaponOnAwake));
             } else
             {
                 Debug.Log("Weapon switch in progress");
             }
         }
 
-        private IEnumerator GetTogglePrimaryWeapon()
+        private IEnumerator GetTogglePrimaryWeapon(bool setWeaponOnAwake = false)
         {
             OnCoroutineStart();
-            if(!isWeaponEquipped)
+            if(!isWeaponEquipped && !setWeaponOnAwake)
             {
                 SetCurrentWeapon(primaryWeapon, false, "twoHandSword", true);
 
@@ -83,8 +83,11 @@ namespace AdventureProto
 
         private void DestroyPreviousWeaponInstance()
         {
-            previousWeapon.DestroyWeaponInstance();
-            previousWeapon = null;
+            if (previousWeapon)
+            {
+                previousWeapon.DestroyWeaponInstance();
+                previousWeapon = null;
+            }
         }
 
         public void UnequipWeapon()
@@ -107,7 +110,7 @@ namespace AdventureProto
 
         private void SetActiveWeaponOnAwake()
         {
-            TogglePrimaryWeapon();
+            TogglePrimaryWeapon(true);
             // Todo: Extend with unsheath primary weapon on awake -- update animator also
         }
 

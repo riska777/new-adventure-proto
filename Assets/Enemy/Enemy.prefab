@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageTextPrefab: {fileID: 4347500277199468988, guid: d1a77e8cfd10e8d4c9b8c97910107e62, type: 3}
+  damageTextOffset: 3
 --- !u!33 &5484471198574643964
 MeshFilter:
   m_ObjectHideFlags: 0
